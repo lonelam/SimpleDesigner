@@ -45,11 +45,12 @@ public class SelectionTool extends Tool{
 
     @Override
     public void mouseDrag(MouseEvent e) {
-        mouseBuffer = e.getPoint();
+
         if (dragging && Actor != null){
             Actor.move((int) (e.getPoint().getX() - mouseBuffer.getX()),
                     (int) (e.getPoint().getY() - mouseBuffer.getY()));
         }
+        mouseBuffer = e.getPoint();
     }
 
 }

@@ -1,6 +1,8 @@
 package GUI;
 
 import drawer.GraphPanel;
+import toolbox.Eraser;
+import toolbox.RectNodeTool;
 import toolbox.SelectionTool;
 import toolbox.Tool;
 
@@ -22,8 +24,8 @@ public class ToolBar extends JPanel{
         actingPanel = graphPanel;
         //工具列表
         toolList.add(new SelectionTool(actingPanel.getG()));
-//        toolList.add(new RectNodeTool());
-//        toolList.add(new Eraser());
+        toolList.add(new RectNodeTool(actingPanel.getG()));
+        toolList.add(new Eraser(actingPanel.getG()));
 //        toolList.add(new ArrowDrawTool());
         for (int i = 0; i < toolList.size(); i++)
         {
