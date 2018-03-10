@@ -17,6 +17,7 @@ public class EditorFrame extends JFrame{
 
         add(toolBar, BorderLayout.EAST);
         add(graphPanel, BorderLayout.CENTER);
+        add(new EditorMenu(graphPanel.getG()), BorderLayout.NORTH);
     }
 
     public GraphPanel getGraphPanel() {

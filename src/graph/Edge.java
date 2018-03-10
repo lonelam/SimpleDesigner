@@ -32,4 +32,12 @@ public abstract class Edge extends Element{
     public void setT(Point t) {
         this.t = t;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Edge ret = (Edge)super.clone();
+        ret.s = (Point) s.clone();
+        ret.t = (Point) t.clone();
+        return ret;
+    }
 }

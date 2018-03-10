@@ -1,8 +1,8 @@
 package GUI;
 
 import drawer.GraphPanel;
-import toolbox.SelectionTool;
-import toolbox.Tool;
+import graph.ClearTool;
+import toolbox.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,15 +15,29 @@ public class ToolBar extends JPanel{
     private Vector<Tool> toolList = new Vector<>();
 
     /**
-     * @param graphPanel 构造时即指定依附的Graph
+     * @param graphPanel 鏋勯�犳椂鍗虫寚瀹氫緷闄勭殑Graph
      */
     public ToolBar(GraphPanel graphPanel) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         actingPanel = graphPanel;
-        //工具列表
+        //宸ュ叿鍒楄〃
         toolList.add(new SelectionTool(actingPanel.getG()));
-//        toolList.add(new RectNodeTool());
-//        toolList.add(new Eraser());
+        toolList.add(new RectNodeTool(actingPanel.getG()));
+        toolList.add(new Eraser(actingPanel.getG()));
+        toolList.add(new UserNodeTool(actingPanel.getG()));
+        toolList.add(new UserCaseNodeTool(actingPanel.getG()));
+        toolList.add(new NoteNodeTool(actingPanel.getG()));
+        toolList.add(new ClassNodeTool(actingPanel.getG()));
+        toolList.add(new InterfaceNodeTool(actingPanel.getG()));
+        toolList.add(new PackageNodeTool(actingPanel.getG()));
+        toolList.add(new ImplicitParameterNodeTool(actingPanel.getG()));
+        toolList.add(new ActivationBarNodeTool(actingPanel.getG()));
+//        toolList.add(new SaveTool(actingPanel.getG()));
+//        toolList.add(new ClearTool(actingPanel.getG()));
+//        toolList.add(new LoadTool(actingPanel.getG()));
+//        toolList.add(new OutputTool(actingPanel.getG()));
+        toolList.add(new AutoEdgeTool(actingPanel.getG()));
+        toolList.add(new DuplicateTool(actingPanel.getG()));
 //        toolList.add(new ArrowDrawTool());
         for (int i = 0; i < toolList.size(); i++)
         {
@@ -39,7 +53,7 @@ public class ToolBar extends JPanel{
     }
 
     /**
-     * 添加一个Tool对应的按钮
+     * 娣诲姞涓�涓猅ool瀵瑰簲鐨勬寜閽�
      */
     private class ToolButton extends JRadioButton {
         ToolButton(String Text, int index) {

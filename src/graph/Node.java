@@ -48,6 +48,11 @@ public abstract class Node extends Element{
         y += dy;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     public int getX() {
         return x;
     }

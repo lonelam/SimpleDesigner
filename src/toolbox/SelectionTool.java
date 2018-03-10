@@ -1,8 +1,11 @@
 package toolbox;
 
 import drawer.DrawSelf;
+import graph.ActivationBarNode;
 import graph.Element;
 import graph.Graph;
+import graph.ImplicitParameterNode;
+import graph.Node;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -45,11 +48,20 @@ public class SelectionTool extends Tool{
 
     @Override
     public void mouseDrag(MouseEvent e) {
-        mouseBuffer = e.getPoint();
+
         if (dragging && Actor != null){
             Actor.move((int) (e.getPoint().getX() - mouseBuffer.getX()),
                     (int) (e.getPoint().getY() - mouseBuffer.getY()));
+            
+            if(Actor instanceof ImplicitParameterNode) {
+                Vector<ActivationBarNode> abns = ((ImplicitParameterNode) Actor).getActivationBarNodes();
+                for(ActivationBarNode a:abns) {
+                    a.update(((Node) Actor).getX()+((Node) Actor).getWidth()/2-15,((Node) Actor).getY()+a.getInnerY()
+                            ,((Node) Actor).getX()+((Node) Actor).getWidth()/2-15, ((Node) Actor).getY()+a.getInnerY());
+                }
+            }
         }
+        mouseBuffer = e.getPoint();
     }
 
 }
