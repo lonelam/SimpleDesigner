@@ -1,5 +1,6 @@
 package graph;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
@@ -25,7 +26,6 @@ public class AggregationArrow extends Edge{
 
     @Override
     public void draw(Graphics2D pic, Rectangle bound) {
-        updatetext();
 
         double vx = t.x - s.x, vy = t.y - s.y;
         double len = sqrt(vx * vx + vy * vy);
@@ -79,19 +79,12 @@ public class AggregationArrow extends Edge{
         this.text = text;
     }
 
-    public void updatetext() {
-//        if (editorBox != null)
-//        {
-        if (!text.equals(""))
-            text = "<<" + text + ">>";
-    }
-
     @Override
     public void pop() {
-        String[] labels = {"Type"};
-        EditorBox editorBox = new EditorBox(null, this, "Priorities", labels, text);
-
-        editorBox.setVisible(true);
+        text = JOptionPane.showInputDialog("Type");
+        if (!text.equals("")) {
+            text = "<<" + text + ">>";
+        }
     }
 
     @Override
