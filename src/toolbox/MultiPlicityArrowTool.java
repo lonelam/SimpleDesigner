@@ -38,6 +38,7 @@ public class MultiPlicityArrowTool extends Tool{
     public void mouseUp(MouseEvent e) {
         dragging = false;
         arrowBuffer.pop();
+        arrowBuffer.shrink(G);
         arrowBuffer = null;
     }
 

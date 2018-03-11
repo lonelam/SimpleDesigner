@@ -1,11 +1,7 @@
 package toolbox;
 
 import drawer.DrawSelf;
-import graph.ActivationBarNode;
-import graph.Element;
-import graph.Graph;
-import graph.ImplicitParameterNode;
-import graph.Node;
+import graph.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -58,6 +54,28 @@ public class SelectionTool extends Tool{
                 for(ActivationBarNode a:abns) {
                     a.update(((Node) Actor).getX()+((Node) Actor).getWidth()/2-15,((Node) Actor).getY()+a.getInnerY()
                             ,((Node) Actor).getX()+((Node) Actor).getWidth()/2-15, ((Node) Actor).getY()+a.getInnerY());
+                }
+            }
+            if (Actor instanceof Node) {
+                for (Element ee : getG().getElems()) {
+                    if (ee instanceof Edge) {
+                        if (Actor.isPointOn(((Edge) ee).getS())) {
+                            ((Edge) ee).getS().x +=
+                                    (int) e.getPoint().getX() - mouseBuffer.getX();
+                            ((Edge) ee).getS().y +=
+                                    (int) e.getPoint().getY() - mouseBuffer.getY();
+                        }
+                        if (Actor.isPointOn(((Edge) ee).getT())) {
+                            ((Edge) ee).getT().x +=
+                                    (int) e.getPoint().getX() - mouseBuffer.getX();
+                            ((Edge) ee).getT().y +=
+                                    (int) e.getPoint().getY() - mouseBuffer.getY();
+                        }
+                    }
+                }
+                for (Element ee: getG().getElems()){
+                    if (ee instanceof Edge)
+                        ((Edge) ee).shrink(G);
                 }
             }
         }
