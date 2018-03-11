@@ -3,7 +3,6 @@ package toolbox;
 import graph.Graph;
 import graph.SimpleArrow;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
