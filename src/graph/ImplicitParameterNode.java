@@ -19,7 +19,12 @@ public class ImplicitParameterNode extends Node{
 		super(X0, Y0, X1, Y1);
 		ActivationBarNodes = new Vector<ActivationBarNode>();
 	}
-	
+
+	@Override
+	public boolean isAttached(Point targetP) {
+		return false;
+	}
+
 	public ImplicitParameterNode(int X0, int Y0, int X1, int Y1, String info) {
 		super(X0, Y0, X1, Y1);
 		text = info;

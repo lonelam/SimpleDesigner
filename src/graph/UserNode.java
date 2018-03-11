@@ -11,7 +11,12 @@ public class UserNode extends Node{
 	public UserNode(int X0, int Y0, int X1, int Y1) {
 		super(X0, Y0, X1+25, Y1+90);
 	}
-	
+
+	@Override
+	public boolean isAttached(Point targetP) {
+		return false;
+	}
+
 	public UserNode(int X0, int Y0, int X1, int Y1,String info) {
 		super(X0, Y0, X1+25, Y1+90);
 		text = info;

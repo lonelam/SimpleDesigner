@@ -12,6 +12,12 @@ public class ClassNode extends Node{
 	public ClassNode(int X0, int Y0, int X1, int Y1) {
 		super(X0, Y0, X1, Y1);
 	}
+
+	@Override
+	public boolean isAttached(Point targetP) {
+		return false;
+	}
+
 	public ClassNode(int X0, int Y0, int X1, int Y1,String info) {
 		super(X0, Y0, X1, Y1);
 		text = info;
@@ -39,7 +45,7 @@ public class ClassNode extends Node{
 				seperate = text.split("\\*\\*");
 			}
 			
-			//¼ÆËã×Ö·û´®µÄ¿ªÊ¼Î»ÖÃ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Ê¼Î»ï¿½ï¿½
 			for(int i=0,len=editorBox.getTextAreaCount();i<len;i++) {
 				String[] linesToDisplay;
 				if(i<seperate.length) {
@@ -59,7 +65,7 @@ public class ClassNode extends Node{
 	 	    	}
 			}
 			
-			//»æÖÆ×Ö·û´®
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 			
 			for(int i=0,len=editorBox.getTextAreaCount();i<len;i++) {
 				String[] linesToDisplay = new String[1];

@@ -20,6 +20,12 @@ public class ActivationBarNode extends Node{
 	public ActivationBarNode(int X0, int Y0, int X1, int Y1) {
 		super(X0, Y0, X1+30, Y1+80);
 	}
+
+	@Override
+	public boolean isAttached(Point targetP) {
+		return false;
+	}
+
 	public ActivationBarNode(int X0, int Y0, int X1, int Y1, String info) {
 		super(X0, Y0, X1+30, Y1+80);
 		text = info;
@@ -90,7 +96,7 @@ public class ActivationBarNode extends Node{
 		p.add(radio1,BorderLayout.NORTH);
 		radio1.setSelected(text==null?false:true);
 		
-		JButton validate = new JButton("х╥хо");
+		JButton validate = new JButton("х╥О©╫О©╫");
 		validate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

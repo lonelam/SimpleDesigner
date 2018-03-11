@@ -14,6 +14,12 @@ public class NoteNode extends Node{
 		super(X0, Y0, X1, Y1);
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public boolean isAttached(Point targetP) {
+		return false;
+	}
+
 	public NoteNode(int X0, int Y0, int X1, int Y1, String info) {
 		super(X0, Y0, X1, Y1);
 		text = info;

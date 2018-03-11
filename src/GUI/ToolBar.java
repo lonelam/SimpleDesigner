@@ -40,10 +40,6 @@ public class ToolBar extends JPanel{
         toolList.add(new AggregationArrowTool(g));
         toolList.add(new DependenciesArrowTool(g));
         toolList.add(new MultiPlicityArrowTool(g));
-//        toolList.add(new SaveTool(g));
-//        toolList.add(new LoadTool(g));
-//        toolList.add(new OutputTool(g));
-        toolList.add(new AutoEdgeTool(g));
         toolList.add(new DuplicateTool(g));
 
 //        toolList.add(new ArrowDrawTool());

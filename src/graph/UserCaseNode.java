@@ -12,6 +12,12 @@ public class UserCaseNode extends Node {
 	public UserCaseNode(int X0, int Y0, int X1, int Y1) {
 		super(X0, Y0, X1, Y1);
 	}
+
+	@Override
+	public boolean isAttached(Point targetP) {
+		return false;
+	}
+
 	public UserCaseNode(int X0, int Y0, int X1, int Y1, String info) {
 		super(X0, Y0, X1, Y1);
 		text = info;

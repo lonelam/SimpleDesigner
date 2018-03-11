@@ -46,9 +46,6 @@ public class SelectionTool extends Tool{
     public void mouseDrag(MouseEvent e) {
 
         if (dragging && Actor != null){
-            Actor.move((int) (e.getPoint().getX() - mouseBuffer.getX()),
-                    (int) (e.getPoint().getY() - mouseBuffer.getY()));
-            
             if(Actor instanceof ImplicitParameterNode) {
                 Vector<ActivationBarNode> abns = ((ImplicitParameterNode) Actor).getActivationBarNodes();
                 for(ActivationBarNode a:abns) {
@@ -78,6 +75,8 @@ public class SelectionTool extends Tool{
                         ((Edge) ee).shrink(G);
                 }
             }
+            Actor.move((int) (e.getPoint().getX() - mouseBuffer.getX()),
+                    (int) (e.getPoint().getY() - mouseBuffer.getY()));
         }
         mouseBuffer = e.getPoint();
     }
