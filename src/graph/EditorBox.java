@@ -15,7 +15,6 @@ public class EditorBox extends JDialog {
 	Element belongsTo;
 	Vector<infoInput> allTextAreas;
 	final int numberOfTextArea;
-	JPanel input;//信息输入区域
 
 	public EditorBox(JFrame owner,Node parent,String title,String[] lables,String known) {
 		this(owner, parent, title, lables);
@@ -33,12 +32,17 @@ public class EditorBox extends JDialog {
 		spaceTop.setSize(100,20);
 		this.add(spaceTop,BorderLayout.NORTH);
 		//信息输入区域
-		input = new JPanel();
+		JPanel input = new JPanel();
 		input.setLayout(new BoxLayout(input,BoxLayout.Y_AXIS));
 		add(input,BorderLayout.CENTER);
 
 		for(int i=0,length=lables.length;i<length;i++) {
-			addInputArea(lables[i]);
+
+			infoInput tmp = new infoInput(lables[i]);
+
+			allTextAreas.addElement(tmp);
+			input.add(tmp);
+			input.add(Box.createVerticalStrut(10));
 		}
 
 		JButton validate = new JButton("确认");
@@ -80,12 +84,16 @@ public class EditorBox extends JDialog {
 		spaceTop.setSize(100,20);
 		this.add(spaceTop,BorderLayout.NORTH);
 		//信息输入区域
-		input = new JPanel();
+		JPanel input = new JPanel();
 		input.setLayout(new BoxLayout(input,BoxLayout.Y_AXIS));
 		add(input,BorderLayout.CENTER);
 		
 		for(int i=0,length=lables.length;i<length;i++) {
-			addInputArea(lables[i]);
+			infoInput tmp = new infoInput(lables[i]);
+
+			allTextAreas.addElement(tmp);
+			input.add(tmp);
+			input.add(Box.createVerticalStrut(10));
 		}
 		
 		JButton validate = new JButton("确认");
@@ -128,15 +136,6 @@ public class EditorBox extends JDialog {
 //		return allTextAreas.elementAt(index).getInfo();
 //	}
 
-	void addInputArea(String label) {
-		
-	
-		infoInput tmp = new infoInput(label);
-		
-		allTextAreas.addElement(tmp);
-		input.add(tmp);
-		input.add(Box.createVerticalStrut(10));
-	}
 	
 //	void generateDisplayInfos() {
 //		for(int i=0,len=allTextAreas.size();i<len;i++) {

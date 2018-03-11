@@ -1,7 +1,6 @@
 package GUI;
 
 import drawer.GraphPanel;
-import graph.ClearTool;
 import graph.Graph;
 import toolbox.*;
 
@@ -42,7 +41,6 @@ public class ToolBar extends JPanel{
         toolList.add(new DependenciesArrowTool(g));
         toolList.add(new MultiPlicityArrowTool(g));
 //        toolList.add(new SaveTool(g));
-//        toolList.add(new ClearTool(g));
 //        toolList.add(new LoadTool(g));
 //        toolList.add(new OutputTool(g));
         toolList.add(new AutoEdgeTool(g));
