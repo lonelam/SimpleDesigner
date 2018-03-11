@@ -1,6 +1,5 @@
 package toolbox;
 
-import graph.DependenciesArrow;
 import graph.Graph;
 import graph.MultiPlicityArrow;
 

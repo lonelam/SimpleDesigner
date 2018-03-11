@@ -2,12 +2,7 @@ package toolbox;
 
 import graph.Graph;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class OutputTool extends Tool{
     public OutputTool(Graph G) {
