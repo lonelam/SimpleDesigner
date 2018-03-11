@@ -1,12 +1,12 @@
 package toolbox;
 
-import java.util.Vector;
-
 import graph.Element;
+
+import java.util.Vector;
 
 public class manipulationLog {
 	Vector<manipulationItem> log = new Vector<manipulationItem>();
-	// ÐÂ½¨£¬É¾³ý£¬¸ÄÐÅÏ¢£¬ÍÏ¶¯
+	// ï¿½Â½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ï¶ï¿½
 	public void addManipulation(manipulationItem m) {
 		log.addElement(m);
 	}

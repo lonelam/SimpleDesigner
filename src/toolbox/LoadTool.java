@@ -1,14 +1,8 @@
 package toolbox;
 
-import graph.AutoEdge;
-import graph.Element;
 import graph.Graph;
 
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.Vector;
 
 public class LoadTool extends Tool{
     public LoadTool(Graph G) {

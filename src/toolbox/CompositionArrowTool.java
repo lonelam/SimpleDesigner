@@ -1,7 +1,6 @@
 package toolbox;
 
 import graph.CompositionArrow;
-import graph.GeneralizationArrow;
 import graph.Graph;
 
 import java.awt.*;

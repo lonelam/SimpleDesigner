@@ -1,10 +1,10 @@
 package toolbox;
 
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-
 import graph.Graph;
 import graph.InterfaceNode;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class InterfaceNodeTool extends Tool{
 	private Point mouseBuffer, startPoint;

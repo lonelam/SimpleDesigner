@@ -1,13 +1,9 @@
 package toolbox;
 
-import java.awt.Point;
-import java.awt.event.MouseEvent;
+import graph.*;
 
-import graph.Graph;
-import graph.ImplicitParameterNode;
-import graph.Node;
-import graph.ActivationBarNode;
-import graph.Element;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class ActivationBarNodeTool extends Tool{
 	private Point mouseBuffer, startPoint;

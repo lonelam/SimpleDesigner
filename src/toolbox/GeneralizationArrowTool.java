@@ -2,7 +2,6 @@ package toolbox;
 
 import graph.GeneralizationArrow;
 import graph.Graph;
-import graph.InheritanceArrow;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
