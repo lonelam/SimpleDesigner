@@ -148,8 +148,14 @@ public class Graph implements DrawSelf{
         try{
             fos = new FileOutputStream(fhandle, false);
             out = new ObjectOutputStream(fos);
-            out.writeObject(getElems());
-//            out.writeObject(getFictions());
+            for (Element ee : getElems()){
+                try{
+                    out.writeObject(ee);
+                }
+                catch (NotSerializableException e){
+                    System.out.println("Serialize failed, skip.");
+                }
+            }
             out.close();
         }
         catch (IOException ex) {
@@ -159,11 +165,13 @@ public class Graph implements DrawSelf{
     public void load(File fhandle){
         FileInputStream fos;
         ObjectInputStream in;
+        clear();
         try{
             fos = new FileInputStream(fhandle);
             in = new ObjectInputStream(fos);
-            setElems((Vector<Element>)in.readObject());
-//            setFictions((Vector<AutoEdge>)in.readObject());
+            while(fos.available() > 0){
+                newElem((Element) in.readObject());
+            }
             in.close();
 
         }
