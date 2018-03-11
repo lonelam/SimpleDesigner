@@ -1,15 +1,16 @@
 package drawer;
 
+import graph.Element;
 import graph.Graph;
+import toolbox.SelectionTool;
 import toolbox.Tool;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.util.Date;
 import java.util.TimerTask;
+import java.util.Vector;
 
 public class GraphPanel extends JPanel{
     private boolean isGridHide = false;
@@ -17,9 +18,12 @@ public class GraphPanel extends JPanel{
     private Grid grid = new Grid(10);
     private Tool currentTool = null;
 
+    private Vector<Element> copyBuffers;
+
     public GraphPanel() {
         addMouseListener(new GraphPanelMouseListener());
         addMouseMotionListener(new GraphPanelMouseMotionListener());
+        addKeyListener(new GraphPanelKeyListener());
         setBackground(Color.WHITE);
     }
 
@@ -38,6 +42,7 @@ public class GraphPanel extends JPanel{
         Rectangle bounds = getBounds();
         if (!isGridHide) grid.draw(g2, bounds);
         G.draw(g2, bounds);
+        requestFocus();
     }
 
     public void setCurrentTool(Tool tool)
@@ -54,8 +59,85 @@ public class GraphPanel extends JPanel{
         isGridHide = gridHide;
     }
 
+    private class GraphPanelKeyListener implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            //开始多选模式
+            if (currentTool.getToolName().equals("SelectionTool")) {
+
+                SelectionTool select = (SelectionTool) currentTool;
+
+                if (e.isControlDown()) {
+                    select.setMultiChoice(true);
+                    //COPY
+                    if (e.getKeyCode() == KeyEvent.VK_C) {
+                        copyBuffers = select.getActorBuffers();
+                    }
+
+                    //CUT
+                    if (e.getKeyCode() == KeyEvent.VK_X) {
+                        copyBuffers = select.getActorBuffers();
+                        for (Element ac : copyBuffers) {
+                            G.delElem(ac);
+                        }
+                    }
+
+                    //PASTE
+                    if (e.getKeyCode() == KeyEvent.VK_V) {
+                        for (Element ac : copyBuffers) {
+                            Element copy = (Element) ac.cloneElem();
+                            G.newElem(copy);
+                        }
+                    }
+
+                    //SELECT ALL
+                    if (e.getKeyCode() == KeyEvent.VK_A) {
+                        for (Element e1 : G.getElems()) {
+                            e1.focuson = true;
+                            select.ActorBuffers.addElement(e1);
+                        }
+                    }
+                }
+
+                //DELETE
+                if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                    for (Element ac : select.ActorBuffers) {
+                        G.delElem(ac);
+                    }
+                    select.ActorBuffers.clear();
+                }
+            }
+            // UNDO
+            if (e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()) {
+                G.undo();
+            }
+            repaint();
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //结束多选模式
+            if (currentTool.getToolName().equals("SelectionTool")) {
+                if (e.getKeyCode() == 17) {
+                    //松开ctrl
+                    ((SelectionTool) currentTool).setMultiChoice(false);
+                }
+            }
+            repaint();
+
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+    }
+
+
     /**
-     * 浠庤繖閲屽線涓嬮兘鏄鐞嗛紶鏍囦簨浠剁殑閮ㄥ垎
+     * 娴犲氦绻栭柌灞界窔娑撳鍏橀弰顖氼槱閻炲棝绱堕弽鍥︾皑娴犲墎娈戦柈銊ュ瀻
      */
     private class GraphPanelMouseMotionListener extends MouseMotionAdapter {
         @Override
@@ -74,7 +156,7 @@ public class GraphPanel extends JPanel{
     
     private class GraphPanelMouseListener extends MouseAdapter {
         /**
-         * 璋冪敤宸ュ叿瀹炵幇锛屽垵姝ョ‘瀹氶渶瑕侀�夋嫨宸ュ叿銆佺敾绗斿伐鍏枫�侀噴鏀惧厓绱犲伐鍏蜂笁澶х被
+         * 鐠嬪啰鏁ゅ銉ュ徔鐎圭偟骞囬敍灞藉灥濮濄儳鈥樼�规岸娓剁憰渚�锟藉瀚ㄥ銉ュ徔閵嗕胶鏁剧粭鏂夸紣閸忔灚锟戒線鍣撮弨鎯у帗缁辩姴浼愰崗铚傜瑏婢堆呰
          *
          * @param e
          */
