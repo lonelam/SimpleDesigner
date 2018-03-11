@@ -1,10 +1,11 @@
 package graph;
 
 import java.awt.*;
+import java.io.Serializable;
 
 import static java.lang.Math.sqrt;
 
-public abstract class Edge extends Element{
+public abstract class Edge extends Element {
     protected Point s;
     protected Point t;
     private Edge(){

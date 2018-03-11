@@ -149,7 +149,7 @@ public class Graph implements DrawSelf{
             fos = new FileOutputStream(fhandle, false);
             out = new ObjectOutputStream(fos);
             out.writeObject(getElems());
-            out.writeObject(getFictions());
+//            out.writeObject(getFictions());
             out.close();
         }
         catch (IOException ex) {
@@ -163,7 +163,7 @@ public class Graph implements DrawSelf{
             fos = new FileInputStream(fhandle);
             in = new ObjectInputStream(fos);
             setElems((Vector<Element>)in.readObject());
-            setFictions((Vector<AutoEdge>)in.readObject());
+//            setFictions((Vector<AutoEdge>)in.readObject());
             in.close();
 
         }

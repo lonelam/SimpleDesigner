@@ -1,13 +1,16 @@
 package graph;
 
+import jdk.nashorn.internal.scripts.JO;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
 import static java.lang.Math.*;
 
 public class SimpleArrow extends Edge{
     private String textline = "";
-    EditorBox editorBox;
     SimpleArrow(Point s, Point t){
         super(s, t);
     }
@@ -26,7 +29,6 @@ public class SimpleArrow extends Edge{
 
     @Override
     public void draw(Graphics2D pic, Rectangle bound) {
-        updateTextline();
         pic.drawLine(s.x, s.y, t.x, t.y);
         double vx = t.x - s.x, vy = t.y - s.y;
         double len = sqrt(vx * vx + vy * vy);
@@ -77,22 +79,11 @@ public class SimpleArrow extends Edge{
         this.textline = textline;
     }
 
-    public void updateTextline(){
-        if (editorBox != null)
-        {
-            if (editorBox.getAllText().equals(""))
-                textline = "";
-            else
-                textline = "<<" + editorBox.getAllText() + ">>";
-        }
-    }
-
     @Override
     public void pop() {
-        if(editorBox == null){
-            String[] labels={"Type"};
-            editorBox = new EditorBox(null,this,"Priorities",labels);
+        textline = JOptionPane.showInputDialog("Type");
+        if (!textline.equals("")){
+            textline = "<<" + textline + ">>";
         }
-        editorBox.setVisible(true);
     }
 }

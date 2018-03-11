@@ -1,5 +1,6 @@
 package graph;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
@@ -8,7 +9,6 @@ import static java.lang.Math.*;
 
 public class GeneralizationArrow extends Edge{
     private String textline = "";
-    EditorBox editorBox;
     GeneralizationArrow(Point s, Point t){
         super(s, t);
     }
@@ -27,7 +27,6 @@ public class GeneralizationArrow extends Edge{
 
     @Override
     public void draw(Graphics2D pic, Rectangle bound) {
-        updateTextline();
         Point tmp = s;
         s = t;
         t = tmp;
@@ -85,23 +84,12 @@ public class GeneralizationArrow extends Edge{
         this.textline = textline;
     }
 
-    public void updateTextline(){
-        if (editorBox != null)
-        {
-            if (editorBox.getAllText().equals(""))
-                textline = "";
-            else
-                textline = "<<" + editorBox.getAllText() + ">>";
-
-        }
-    }
 
     @Override
     public void pop() {
-        if(editorBox == null){
-            String[] labels={"Type"};
-            editorBox = new EditorBox(null,this,"Priorities",labels);
+        textline = JOptionPane.showInputDialog("Type");
+        if (!textline.equals("")){
+            textline = "<<" + textline + ">>";
         }
-        editorBox.setVisible(true);
     }
 }

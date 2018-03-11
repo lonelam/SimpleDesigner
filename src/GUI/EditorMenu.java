@@ -1,6 +1,7 @@
 package GUI;
 
 import graph.Graph;
+import menubox.ClearMenu;
 import menubox.LoadMenu;
 import menubox.OutputMenu;
 import menubox.SaveMenu;
@@ -18,6 +19,7 @@ public class EditorMenu extends JMenuBar{
         jm.add(new SaveMenu(G));
         jm.add(new LoadMenu(G));
         jm.add(new OutputMenu(G));
+        jm.add(new ClearMenu(G));
     }
 
     public Graph getG() {
