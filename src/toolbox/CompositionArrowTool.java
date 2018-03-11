@@ -1,0 +1,53 @@
+package toolbox;
+
+import graph.CompositionArrow;
+import graph.GeneralizationArrow;
+import graph.Graph;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+public class CompositionArrowTool extends Tool{
+    private Point mouseBuffer, startPoint;
+    private boolean dragging = false;
+    private CompositionArrow arrowBuffer = null;
+    public CompositionArrowTool(Graph G) {
+        super(G);
+        setToolName("CompositionArrowTool");
+    }
+
+    @Override
+    public void doubleClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void singleClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDown(MouseEvent e) {
+        dragging = true;
+        startPoint = e.getPoint();
+        arrowBuffer = new CompositionArrow(startPoint.x, startPoint.y, startPoint.x, startPoint.y);
+        G.newElem(arrowBuffer);
+    }
+
+    @Override
+    public void mouseUp(MouseEvent e) {
+        dragging = false;
+        arrowBuffer.pop();
+        arrowBuffer = null;
+    }
+
+    @Override
+    public void mouseDrag(MouseEvent e) {
+        if (dragging)
+        {
+            mouseBuffer = e.getPoint();
+            arrowBuffer.setT(mouseBuffer);
+//            G.getActor().update(startPoint.x, startPoint.y, mouseBuffer.x, mouseBuffer.y);
+        }
+    }
+}

@@ -3,7 +3,8 @@ package graph;
 import java.awt.*;
 
 public abstract class Edge extends Element{
-    private Point s, t;
+    protected Point s;
+    protected Point t;
     private Edge(){
 
     }

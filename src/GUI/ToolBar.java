@@ -2,6 +2,7 @@ package GUI;
 
 import drawer.GraphPanel;
 import graph.ClearTool;
+import graph.Graph;
 import toolbox.*;
 
 import javax.swing.*;
@@ -21,23 +22,32 @@ public class ToolBar extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         actingPanel = graphPanel;
         //宸ュ叿鍒楄〃
-        toolList.add(new SelectionTool(actingPanel.getG()));
-        toolList.add(new RectNodeTool(actingPanel.getG()));
-        toolList.add(new Eraser(actingPanel.getG()));
-        toolList.add(new UserNodeTool(actingPanel.getG()));
-        toolList.add(new UserCaseNodeTool(actingPanel.getG()));
-        toolList.add(new NoteNodeTool(actingPanel.getG()));
-        toolList.add(new ClassNodeTool(actingPanel.getG()));
-        toolList.add(new InterfaceNodeTool(actingPanel.getG()));
-        toolList.add(new PackageNodeTool(actingPanel.getG()));
-        toolList.add(new ImplicitParameterNodeTool(actingPanel.getG()));
-        toolList.add(new ActivationBarNodeTool(actingPanel.getG()));
-//        toolList.add(new SaveTool(actingPanel.getG()));
-//        toolList.add(new ClearTool(actingPanel.getG()));
-//        toolList.add(new LoadTool(actingPanel.getG()));
-//        toolList.add(new OutputTool(actingPanel.getG()));
-        toolList.add(new AutoEdgeTool(actingPanel.getG()));
-        toolList.add(new DuplicateTool(actingPanel.getG()));
+        Graph g = actingPanel.getG();
+        toolList.add(new SelectionTool(g));
+        toolList.add(new RectNodeTool(g));
+        toolList.add(new Eraser(g));
+        toolList.add(new UserNodeTool(g));
+        toolList.add(new UserCaseNodeTool(g));
+        toolList.add(new NoteNodeTool(g));
+        toolList.add(new ClassNodeTool(g));
+        toolList.add(new InterfaceNodeTool(g));
+        toolList.add(new PackageNodeTool(g));
+        toolList.add(new ImplicitParameterNodeTool(g));
+        toolList.add(new ActivationBarNodeTool(g));
+        toolList.add(new SimpleArrowTool(g));
+        toolList.add(new InheritanceArrowTool(g));
+        toolList.add(new GeneralizationArrowTool(g));
+        toolList.add(new CompositionArrowTool(g));
+        toolList.add(new AggregationArrowTool(g));
+        toolList.add(new DependenciesArrowTool(g));
+        toolList.add(new MultiPlicityArrowTool(g));
+//        toolList.add(new SaveTool(g));
+//        toolList.add(new ClearTool(g));
+//        toolList.add(new LoadTool(g));
+//        toolList.add(new OutputTool(g));
+        toolList.add(new AutoEdgeTool(g));
+        toolList.add(new DuplicateTool(g));
+
 //        toolList.add(new ArrowDrawTool());
         for (int i = 0; i < toolList.size(); i++)
         {

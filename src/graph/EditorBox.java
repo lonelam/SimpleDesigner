@@ -11,7 +11,7 @@ import java.util.Vector;
 import javax.swing.*;
 
 public class EditorBox extends JDialog {
-	Node belongsTo;
+	Element belongsTo;
 	Vector<infoInput> allTextAreas;
 	final int numberOfTextArea;
 	JPanel input;//信息输入区域
@@ -20,6 +20,54 @@ public class EditorBox extends JDialog {
 		this(owner, parent, title, lables);
 		this.init(known);
 	}
+
+	public EditorBox(JFrame owner,Element parent,String title,String[] lables){
+		super(owner,title,true);
+		numberOfTextArea = lables.length;
+		belongsTo = parent;
+		allTextAreas = new Vector<infoInput>();
+		this.setLayout(new BorderLayout(20,10));
+		//顶部的空隙
+		JPanel spaceTop = new JPanel();
+		spaceTop.setSize(100,20);
+		this.add(spaceTop,BorderLayout.NORTH);
+		//信息输入区域
+		input = new JPanel();
+		input.setLayout(new BoxLayout(input,BoxLayout.Y_AXIS));
+		add(input,BorderLayout.CENTER);
+
+		for(int i=0,length=lables.length;i<length;i++) {
+			addInputArea(lables[i]);
+		}
+
+		JButton validate = new JButton("确认");
+		JPanel buttonArea = new JPanel();
+		buttonArea.setLayout(new BorderLayout());
+		buttonArea.setSize(100,40);
+		add(buttonArea,BorderLayout.SOUTH);
+		validate.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+
+				//按下确认键后，将每一个对话框中的字符串整理成可以显示的样子
+//				generateDisplayInfos();
+
+				//元素立即更新信息
+//				belongsTo.update();
+			}
+		});
+		buttonArea.add(validate,BorderLayout.EAST);
+		JPanel space = new JPanel();
+		space.setSize(70,40);
+		buttonArea.add(space,BorderLayout.WEST);
+
+		pack();
+
+	}
+
+
 	public EditorBox(JFrame owner,Node parent,String title,String[] lables){
 		super(owner,title,true);
 		numberOfTextArea = lables.length;
@@ -65,7 +113,7 @@ public class EditorBox extends JDialog {
 		pack();
 		
 	}
-	
+
 	public int getTextAreaCount() {
 		return numberOfTextArea;
 	}
