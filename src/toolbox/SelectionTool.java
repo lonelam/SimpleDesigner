@@ -59,13 +59,13 @@ public class SelectionTool extends Tool{
             if (Actor instanceof Node) {
                 for (Element ee : getG().getElems()) {
                     if (ee instanceof Edge) {
-                        if (Actor.isPointOn(((Edge) ee).getS())) {
+                        if (((Node) Actor).isAttached(((Edge) ee).getS())) {
                             ((Edge) ee).getS().x +=
                                     (int) e.getPoint().getX() - mouseBuffer.getX();
                             ((Edge) ee).getS().y +=
                                     (int) e.getPoint().getY() - mouseBuffer.getY();
                         }
-                        if (Actor.isPointOn(((Edge) ee).getT())) {
+                        if (((Node) Actor).isAttached(((Edge) ee).getT())) {
                             ((Edge) ee).getT().x +=
                                     (int) e.getPoint().getX() - mouseBuffer.getX();
                             ((Edge) ee).getT().y +=

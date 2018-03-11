@@ -76,19 +76,21 @@ public class UserCaseNode extends Node {
 
 	@Override
 	public boolean isConflict(Point targetP) {
-		// TODO Auto-generated method stub
+		if (targetP.getX() >= getX()+3 && targetP.getY() >= getY() +3 &&
+				targetP.getX() <= getWidth() + getX() -3 && targetP.getY() <= getHeight() + getY() -3) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
-		if(editorBox == null){
-			String[] labels={"Name"};
-			editorBox = new EditorBox(null,this,"Priorities",labels);
+		if(editorBox == null) {
+			String[] labels = {"Name"};
+			editorBox = new EditorBox(null, this, "Priorities", labels);
 
 		}
-			
 		editorBox.setVisible(true);
 
 	}

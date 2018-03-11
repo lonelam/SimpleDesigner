@@ -42,6 +42,8 @@ public abstract class Node extends Element{
         height = abs(Y0 - Y1);
     }
 
+    public abstract boolean isAttached(Point targetP);
+
     @Override
     public void move(int dx, int dy) {
         x += dx;
