@@ -222,7 +222,10 @@ public class Graph implements DrawSelf{
     public void output(File fhandle){
         BufferedImage bi = new BufferedImage(1024, 768, BufferedImage.TYPE_INT_ARGB);
         Graphics2D outG = bi.createGraphics();
-        draw(outG, new Rectangle(1024, 768));
+        outG.setBackground(Color.WHITE);
+        Rectangle boundary = new Rectangle(1024, 768);
+        outG.fillRect(boundary.x, boundary.y, boundary.width, boundary.height);
+        draw(outG, boundary);
         try {
             ImageIO.write(bi, "PNG", fhandle);
         } catch (IOException e1) {
