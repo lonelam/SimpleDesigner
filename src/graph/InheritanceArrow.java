@@ -87,4 +87,9 @@ public class InheritanceArrow extends Edge{
             textline = "<<" + textline + ">>";
         }
     }
+
+    @Override
+    public Object cloneElem() {
+        return null;
+    }
 }

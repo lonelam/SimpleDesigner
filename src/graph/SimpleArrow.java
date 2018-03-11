@@ -1,11 +1,8 @@
 package graph;
 
-import jdk.nashorn.internal.scripts.JO;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.Serializable;
 
 import static java.lang.Math.*;
 
@@ -85,5 +82,10 @@ public class SimpleArrow extends Edge{
         if (!textline.equals("")){
             textline = "<<" + textline + ">>";
         }
+    }
+
+    @Override
+    public Object cloneElem() {
+        return null;
     }
 }

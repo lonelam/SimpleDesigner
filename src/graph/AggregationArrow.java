@@ -1,6 +1,5 @@
 package graph;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
@@ -8,7 +7,6 @@ import static java.lang.Math.*;
 
 
 public class AggregationArrow extends Edge{
-    private String textline = "";
     AggregationArrow(Point s, Point t){
         super(s, t);
     }
@@ -27,6 +25,8 @@ public class AggregationArrow extends Edge{
 
     @Override
     public void draw(Graphics2D pic, Rectangle bound) {
+        updatetext();
+
         double vx = t.x - s.x, vy = t.y - s.y;
         double len = sqrt(vx * vx + vy * vy);
         vx /= len;
@@ -43,7 +43,7 @@ public class AggregationArrow extends Edge{
         AffineTransform orig = pic.getTransform();
 
         pic.rotate(atan2(vy, vx), (s.x + t.x) / 2, (s.y + t.y) / 2);
-        pic.drawString(textline, (s.x + t.x) / 2, (s.y + t.y) / 2);
+        pic.drawString(text, (s.x + t.x) / 2, (s.y + t.y) / 2);
         pic.setTransform(orig);
         pic.drawLine(s.x, s.y, (int)ox, (int)oy);
     }
@@ -75,15 +75,27 @@ public class AggregationArrow extends Edge{
         return false;
     }
 
-    public void setTextline(String textline) {
-        this.textline = textline;
+    public void settext(String text) {
+        this.text = text;
+    }
+
+    public void updatetext() {
+//        if (editorBox != null)
+//        {
+        if (!text.equals(""))
+            text = "<<" + text + ">>";
     }
 
     @Override
     public void pop() {
-        textline = JOptionPane.showInputDialog("Type");
-        if (!textline.equals("")){
-            textline = "<<" + textline + ">>";
-        }
+        String[] labels = {"Type"};
+        EditorBox editorBox = new EditorBox(null, this, "Priorities", labels, text);
+
+        editorBox.setVisible(true);
+    }
+
+    @Override
+    public Object cloneElem() {
+        return null;
     }
 }

@@ -7,7 +7,6 @@ import menubox.OutputMenu;
 import menubox.SaveMenu;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class EditorMenu extends JMenuBar{
     private JMenu jm;

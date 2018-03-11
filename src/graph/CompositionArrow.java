@@ -88,4 +88,9 @@ public class CompositionArrow extends Edge{
             textline = "<<" + textline + ">>";
         }
     }
+
+    @Override
+    public Object cloneElem() {
+        return null;
+    }
 }

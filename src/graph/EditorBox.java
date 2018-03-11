@@ -1,51 +1,49 @@
 package graph;
 
-import java.awt.BorderLayout;
-
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import java.util.Vector;
 
-import javax.swing.*;
-
-public class EditorBox extends JDialog {
-	Element belongsTo;
+public class EditorBox extends JDialog implements Cloneable {
+    //	Node belongsTo;
+    Element belongsTo;
 	Vector<infoInput> allTextAreas;
 	final int numberOfTextArea;
+    JPanel input;//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    String[] lables;
 
-	public EditorBox(JFrame owner,Node parent,String title,String[] lables,String known) {
-		this(owner, parent, title, lables);
-		this.init(known);
-	}
+    public EditorBox(JFrame owner, Element parent, String title, String[] lables, String known) {
+        this(owner, parent, title, lables);
+        if (known != null) {
 
-	public EditorBox(JFrame owner,Element parent,String title,String[] lables){
+            this.init(known);
+        }
+
+    }
+
+    public EditorBox(JFrame owner,Element parent,String title,String[] lables){
 		super(owner,title,true);
-		numberOfTextArea = lables.length;
+        this.lables = lables;
+        numberOfTextArea = lables.length;
 		belongsTo = parent;
 		allTextAreas = new Vector<infoInput>();
 		this.setLayout(new BorderLayout(20,10));
-		//¶¥²¿µÄ¿ÕÏ¶
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Ï¶
 		JPanel spaceTop = new JPanel();
 		spaceTop.setSize(100,20);
 		this.add(spaceTop,BorderLayout.NORTH);
-		//ÐÅÏ¢ÊäÈëÇøÓò
-		JPanel input = new JPanel();
-		input.setLayout(new BoxLayout(input,BoxLayout.Y_AXIS));
+		//ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        input = new JPanel();
+        input.setLayout(new BoxLayout(input,BoxLayout.Y_AXIS));
 		add(input,BorderLayout.CENTER);
 
-		for(int i=0,length=lables.length;i<length;i++) {
+        for(int i=0,length=lables.length;i<length;i++) {
+            addInputArea(lables[i]);
+        }
 
-			infoInput tmp = new infoInput(lables[i]);
-
-			allTextAreas.addElement(tmp);
-			input.add(tmp);
-			input.add(Box.createVerticalStrut(10));
-		}
-
-		JButton validate = new JButton("È·ÈÏ");
+        JButton validate = new JButton("È·ï¿½ï¿½");
 		JPanel buttonArea = new JPanel();
 		buttonArea.setLayout(new BorderLayout());
 		buttonArea.setSize(100,40);
@@ -56,78 +54,23 @@ public class EditorBox extends JDialog {
 				// TODO Auto-generated method stub
 				setVisible(false);
 
-				//°´ÏÂÈ·ÈÏ¼üºó£¬½«Ã¿Ò»¸ö¶Ô»°¿òÖÐµÄ×Ö·û´®ÕûÀí³É¿ÉÒÔÏÔÊ¾µÄÑù×Ó
-//				generateDisplayInfos();
-
-				//ÔªËØÁ¢¼´¸üÐÂÐÅÏ¢
-//				belongsTo.update();
-			}
+                belongsTo.text = getAllText();
+            }
 		});
-		buttonArea.add(validate,BorderLayout.EAST);
+
+        buttonArea.add(validate,BorderLayout.EAST);
 		JPanel space = new JPanel();
 		space.setSize(70,40);
 		buttonArea.add(space,BorderLayout.WEST);
 
-		pack();
-
+        pack();
 	}
 
-
-	public EditorBox(JFrame owner,Node parent,String title,String[] lables){
-		super(owner,title,true);
-		numberOfTextArea = lables.length;
-		belongsTo = parent;
-		allTextAreas = new Vector<infoInput>();
-		this.setLayout(new BorderLayout(20,10));
-		//¶¥²¿µÄ¿ÕÏ¶
-		JPanel spaceTop = new JPanel();
-		spaceTop.setSize(100,20);
-		this.add(spaceTop,BorderLayout.NORTH);
-		//ÐÅÏ¢ÊäÈëÇøÓò
-		JPanel input = new JPanel();
-		input.setLayout(new BoxLayout(input,BoxLayout.Y_AXIS));
-		add(input,BorderLayout.CENTER);
-		
-		for(int i=0,length=lables.length;i<length;i++) {
-			infoInput tmp = new infoInput(lables[i]);
-
-			allTextAreas.addElement(tmp);
-			input.add(tmp);
-			input.add(Box.createVerticalStrut(10));
-		}
-		
-		JButton validate = new JButton("È·ÈÏ");
-		JPanel buttonArea = new JPanel();
-		buttonArea.setLayout(new BorderLayout());
-		buttonArea.setSize(100,40);
-		add(buttonArea,BorderLayout.SOUTH);
-		validate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				setVisible(false);
-				
-				//°´ÏÂÈ·ÈÏ¼üºó£¬½«Ã¿Ò»¸ö¶Ô»°¿òÖÐµÄ×Ö·û´®ÕûÀí³É¿ÉÒÔÏÔÊ¾µÄÑù×Ó
-//				generateDisplayInfos();
-				
-				//ÔªËØÁ¢¼´¸üÐÂÐÅÏ¢
-//				belongsTo.update();
-			}
-		});
-		buttonArea.add(validate,BorderLayout.EAST);
-		JPanel space = new JPanel();
-		space.setSize(70,40);
-		buttonArea.add(space,BorderLayout.WEST);
-		
-		pack();
-		
-	}
-
-	public int getTextAreaCount() {
+    public int getTextAreaCount() {
 		return numberOfTextArea;
 	}
 
-	//»ñµÃµÚindex¸öÎÄ±¾ÊäÈë¿òµÄÏÔÊ¾ÐÅÏ¢
+	//ï¿½ï¿½Ãµï¿½indexï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
 //	public String[] getInfoLinesAt(int index) {
 //		return allTextAreas.elementAt(index).getDisplayInfoLines();
 //	}
@@ -136,26 +79,29 @@ public class EditorBox extends JDialog {
 //		return allTextAreas.elementAt(index).getInfo();
 //	}
 
-	
-//	void generateDisplayInfos() {
-//		for(int i=0,len=allTextAreas.size();i<len;i++) {
-//			allTextAreas.elementAt(i).retrieveText();
-//		}
-//	}
-//	
-//	Vector<infoInput>  getAllTextAreas(){
-//		return allTextAreas;
-//	}
-	
-	//2018.03.08
-	//»ñÈ¡Ã¿¸öÊäÈë¿òµÄ×Ö·û´®µÄ¼¯ºÏ ÒÔ**Îª·Ö½ç
+    void addInputArea(String label) {
+
+
+        infoInput tmp = new infoInput(label);
+
+        allTextAreas.addElement(tmp);
+        input.add(tmp);
+        input.add(Box.createVerticalStrut(10));
+    }
+
+    String[] getLabels() {
+        return lables;
+    }
+
+    //2018.03.08
+	//ï¿½ï¿½È¡Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ ï¿½ï¿½**Îªï¿½Ö½ï¿½
 	String getAllText() {
 		String r = "";
 		for(int i=0,len=allTextAreas.size();i<len;i++) {
 			r+=allTextAreas.elementAt(i).getInfo();
 			if(i!=len-1) {
 				r+="**";
-				//·Ö¸ô·û
+				//ï¿½Ö¸ï¿½ï¿½ï¿½
 			}
 		}
 		return r;
@@ -171,12 +117,18 @@ public class EditorBox extends JDialog {
 			
 		}
 	}
-	
-	class infoInput extends JPanel{
-		JTextArea jta;//ÊäÈëÇøÓòÎÄ±¾¿ò
-		JPanel labelArea;//ÊäÈë¿òlabel
+
+    @Override
+    public Object clone() {
+        EditorBox r = new EditorBox(null, belongsTo, this.getTitle(), this.getLabels(), this.getAllText());
+        return r;
+    }
+
+    class infoInput extends JPanel{
+		JTextArea jta;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
+		JPanel labelArea;//ï¿½ï¿½ï¿½ï¿½ï¿½label
 		String labelName;//label
-		String info;//ÊäÈë¿òÐÅÏ¢
+		String info;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		
 		infoInput(String LabelName){
 			super();
@@ -205,15 +157,6 @@ public class EditorBox extends JDialog {
 			
 		}
 		
-		
-//		void retrieveText() {
-//			info = jta.getText();
-//			infos = info.split("\n");
-//		}
-//		
-//		String[] getDisplayInfoLines() {
-//			return infos;
-//		}
 		String getInfo() {
 			return jta.getText();
 		}

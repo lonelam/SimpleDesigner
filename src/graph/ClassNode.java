@@ -1,13 +1,8 @@
 package graph;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 
 public class ClassNode extends Node{
-	private String text;
-    private EditorBox editorBox;
     
 	public ClassNode(int X0, int Y0, int X1, int Y1) {
 		super(X0, Y0, X1, Y1);
@@ -21,33 +16,30 @@ public class ClassNode extends Node{
 	public ClassNode(int X0, int Y0, int X1, int Y1,String info) {
 		super(X0, Y0, X1, Y1);
 		text = info;
-		String[] labels={"Name","Attributes","Methods"};
-		editorBox = new EditorBox(null,this,"Priorities",labels,text);
 	}
 
 	@Override
 	public void draw(Graphics2D pic, Rectangle bound) {
-		// TODO Auto-generated method stub
 		pic.setColor(Color.WHITE);
 		pic.fillRect(getX(),getY(),getWidth(),getHeight());
 		pic.setColor(Color.BLACK);
 		pic.drawRect(getX(), getY(), getWidth(), getHeight());
-		
-		int offsetX=2;
+
+        if (focuson) {
+            super.highlight(pic);
+        }
+
+        int offsetX=2;
 		int[] offsetYs = {2,32,62};//basis
-//		int[] offsetYs = new int[3];
-		if(editorBox!=null) {
-			text = editorBox.getAllText();
-			if(text.equals("****"))
+        if (text != null) {
+            if(text.equals("****"))
 				return ;
 			String[] seperate = new String[1];
 			if(text!="") {
 				seperate = text.split("\\*\\*");
 			}
-			
-			//�����ַ����Ŀ�ʼλ��
-			for(int i=0,len=editorBox.getTextAreaCount();i<len;i++) {
-				String[] linesToDisplay;
+            for (int i = 0, len = 3; i < len; i++) {
+                String[] linesToDisplay;
 				if(i<seperate.length) {
 					linesToDisplay = seperate[i].split("\n");
 				}else {
@@ -64,11 +56,10 @@ public class ClassNode extends Node{
 	 	    		}
 	 	    	}
 			}
-			
-			//�����ַ���
-			
-			for(int i=0,len=editorBox.getTextAreaCount();i<len;i++) {
-				String[] linesToDisplay = new String[1];
+
+
+            for (int i = 0, len = 3; i < len; i++) {
+                String[] linesToDisplay = new String[1];
 				if(i<seperate.length) {
 					linesToDisplay = seperate[i].split("\n");
 				}else {
@@ -94,29 +85,6 @@ public class ClassNode extends Node{
 	 	    		pic.drawLine(getX(), getY()+offsetYs[i]+h+10, getX()+getWidth(), getY()+offsetYs[i]+h+10);
 	 	    	}
 			}
-				
-//			for(int i=0,len=editorBox.getTextAreaCount();i<len;i++) {
-//				String[] linesToDisplay = editorBox.getInfoLinesAt(i);
-//	 	    	int longest=0;
-//	 	    	if(linesToDisplay!=null) {
-//	 	    		int h=20*(linesToDisplay.length);
-//	 	    		if(i==len-1){
-//	 	    			setHeight(h+offsetYs[i]+10);
-//	 	    		}
-//	 	    		int offset = offsetYs[i];
-//	 	    		for(int j=0;j<linesToDisplay.length;j++) {
-//		 	    		pic.drawString(linesToDisplay[j], getX()+offsetX, getY()+(offset+=20)+5);
-//		 	    		if(linesToDisplay[j].length()>linesToDisplay[longest].length()){
-//		 	    			longest=j;
-//		 	    		}
-//		 	    		int l=pic.getFontMetrics().charsWidth(linesToDisplay[longest].toCharArray(), 0, linesToDisplay[longest].length());
-//		 	    		if(l>getWidth()){
-//		 	    			setWidth(l+20);
-//		 	    		}
-//		 	    	}
-//	 	    		pic.drawLine(getX(), getY()+offsetYs[i]+h+10, getX()+getWidth(), getY()+offsetYs[i]+h+10);
-//	 	    	}
-//			}
 		}
 	}
 
@@ -132,14 +100,9 @@ public class ClassNode extends Node{
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-		if(editorBox == null){
-			String[] labels={"Name","Attributes","Methods"};
-			editorBox = new EditorBox(null,this,"Priorities",labels);
-
-		}
-			
-		editorBox.setVisible(true);
+        String[] labels = {"Name", "Attributes", "Methods"};
+        EditorBox editorBox = new EditorBox(null, this, "Priorities", labels, text);
+        editorBox.setVisible(true);
 	}
 
 	@Override
@@ -148,4 +111,9 @@ public class ClassNode extends Node{
 		return false;
 	}
 
+    public Object cloneElem() {
+
+        ClassNode r = new ClassNode(10, 10, 10 + this.getWidth(), 10 + this.getHeight(), this.text);
+        return r;
+    }
 }

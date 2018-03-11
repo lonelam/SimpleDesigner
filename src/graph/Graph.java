@@ -8,13 +8,22 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Queue;
 
 public class Graph implements DrawSelf{
     private Vector<Element> elems = new Vector<>();
     private Vector<AutoEdge> fictions = new Vector<>();
     private Rectangle boundBuffer = new Rectangle(0, 0, 1024, 768);
 
+
+    public Vector<Element> newBuffer = new Vector<Element>();
+    public Vector<Element> changeBuffer = new Vector<Element>();
+    public Vector<Element> pointBuffer = new Vector<Element>();
+    public Vector<Element> deleteBuffer = new Vector<Element>();
+
+    public Vector<Vector<Element>> bufferOrder = new Vector<Vector<Element>>();
+    
+    
     public Graph() {
     }
 
@@ -114,10 +123,31 @@ public class Graph implements DrawSelf{
     }
 
     public void newElem(Element elem) {
+        Element copy;
+        if (elem instanceof Node) {
+            copy = (Element) elem.cloneElem();
+        } else {
+            try {
+                copy = (Element) elem.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+        this.newBuffer.addElement(copy);
+        this.bufferOrder.addElement(newBuffer);
         elems.add(elem);
     }
 
     public void delElem(Element focuser) {
+        this.deleteBuffer.addElement(focuser);
+        this.bufferOrder.addElement(deleteBuffer);
+
+        if (focuser instanceof ImplicitParameterNode) {
+            for (Element ab : ((ImplicitParameterNode) focuser).ActivationBarNodes) {
+                delElem(ab);
+            }
+        }
         elems.remove(focuser);
         fictions.remove(focuser);
     }
@@ -128,6 +158,14 @@ public class Graph implements DrawSelf{
 
     public Vector<Element> getElems() {
         return elems;
+    }
+
+    public Vector<Element> getOutputElems() {
+        Vector<Element> output = new Vector<Element>();
+        for (Element e : elems) {
+
+        }
+        return output;
     }
 
     public void setElems(Vector<Element> elems) {
@@ -173,7 +211,6 @@ public class Graph implements DrawSelf{
                 newElem((Element) in.readObject());
             }
             in.close();
-
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -195,6 +232,25 @@ public class Graph implements DrawSelf{
 
     public void setBoundBuffer(Rectangle boundBuffer) {
         this.boundBuffer = boundBuffer;
+    }
+
+    public void undo() {
+        Vector<Element> currentBuffer = bufferOrder.remove(bufferOrder.size() - 1);
+        Element e = currentBuffer.lastElement();
+        currentBuffer.remove(e);
+        if (currentBuffer == newBuffer) {
+            elems.remove(elems.size() - 1);
+        }
+
+        if (currentBuffer == deleteBuffer) {
+            elems.addElement(e);
+        }
+
+        if (currentBuffer == changeBuffer) {
+            elems.add(e);
+            Element old = pointBuffer.remove(pointBuffer.size() - 1);
+            elems.remove(old);
+        }
     }
 
 }

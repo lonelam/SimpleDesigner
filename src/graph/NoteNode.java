@@ -1,36 +1,21 @@
 package graph;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 
 
 public class NoteNode extends Node{
-    private EditorBox editorBox;
-    String text;
     
 	public NoteNode(int X0, int Y0, int X1, int Y1) {
 		super(X0, Y0, X1, Y1);
-		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public boolean isAttached(Point targetP) {
-		return false;
-	}
-
 	public NoteNode(int X0, int Y0, int X1, int Y1, String info) {
 		super(X0, Y0, X1, Y1);
 		text = info;
-		String[] labels={"Text"};
-		editorBox = new EditorBox(null,this,"Priorities",labels,text);
 	}
 
 	@Override
 	public void draw(Graphics2D pic, Rectangle bound) {
-		// TODO Auto-generated method stub
-		
+
 		int[] xPoints = {getX(),getX(),getX()+getWidth(),getX()+getWidth(),getX()+getWidth()-20,getX()+getWidth()-20};
 		int[] yPoints = {getY(),getY()+getHeight(),getY()+getHeight(),getY()+20,getY()+20,getY()};
 		pic.setColor(new Color(230,230,153));
@@ -48,10 +33,10 @@ public class NoteNode extends Node{
 		
 		
 		int offsetX=2,offsetY=1;
-		
-		if(editorBox!=null) {
-			text = editorBox.getAllText();
-	    	if(!text.equals("")) {
+
+        if (text != null) {
+//			text = editorBox.getAllText();
+            if(!text.equals("")) {
 	    		String[] linesToDisplay = text.split("\n");
 	    		int longest=0;
 	 	    	if(linesToDisplay!=null) {
@@ -70,34 +55,14 @@ public class NoteNode extends Node{
 	 	    	}
 	    	}
 		}
-//		if(editorBox!=null) {
-//			
-//			for(int i=0,len=editorBox.getTextAreaCount();i<len;i++) {
-//				String[] linesToDisplay = editorBox.getInfoLinesAt(i);
-//	 	    	int longest=0;
-//	 	    	if(linesToDisplay!=null) {
-//	 	    		int h=20*(linesToDisplay.length);
-//	 	    		if(h>getHeight()){
-//	 	    			setHeight(h+40);
-//	 	    		}
-//	 	    		for(int j=0;j<linesToDisplay.length;j++) {
-//		 	    		pic.drawString(linesToDisplay[j], getX()+offsetX, getY()+(offsetY+=20));
-//		 	    		if(linesToDisplay[j].length()>linesToDisplay[longest].length()){
-//		 	    			longest=j;
-//		 	    		}
-//		 	    		int l=pic.getFontMetrics().charsWidth(linesToDisplay[longest].toCharArray(), 0, linesToDisplay[longest].length());
-//		 	    		if(l>getWidth()){
-//		 	    			setWidth(l+40);
-//		 	    		}
-//		 	    	}
-//	 	    	}
-//			}
-//		}
+        if (focuson) {
+            super.highlight(pic);
+        }
+
 	}
 
 	@Override
 	public boolean isPointOn(Point mouseP) {
-		// TODO Auto-generated method stub
 		if (mouseP.getX() >= getX() && mouseP.getY() >= getY() &&
                 mouseP.getX() <= getWidth() + getX() && mouseP.getY() <= getHeight() + getY()) {
             return true;
@@ -107,20 +72,33 @@ public class NoteNode extends Node{
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-		if(editorBox == null){
-			String[] labels={"Text"};
-			editorBox = new EditorBox(null,this,"Priorities",labels);
 
-		}
-			
-		editorBox.setVisible(true);
+        String[] labels = {"Text"};
+        EditorBox editorBox = new EditorBox(null, this, "Priorities", labels, text);
+        editorBox.setVisible(true);
 	}
 
 	@Override
 	public boolean isConflict(Point targetP) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+        return false;
+    }
 
+    public Object cloneElem() {
+        NoteNode r = new NoteNode(10, 10, 10 + this.getWidth(), 10 + this.getHeight(), this.text);
+
+        return r;
+    }
+
+    public Object getLastVersion() {
+        NoteNode r = new NoteNode(10, 10, 10 + this.getWidth(), 10 + this.getHeight(), this.text);
+
+        return r;
+    }
+
+    @Override
+    public boolean isAttached(Point targetP) {
+        return false;
+	}
 }
+
+

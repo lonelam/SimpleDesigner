@@ -86,4 +86,18 @@ public abstract class Node extends Element{
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public void highlight(Graphics2D pic) {
+        pic.setColor(Color.white);
+        pic.fillRect(x - 3, y - 3, 6, 6);
+        pic.fillRect(x + width - 3, y - 3, 6, 6);
+        pic.fillRect(x - 3, y + height - 3, 6, 6);
+        pic.fillRect(x + width - 3, y + height - 3, 6, 6);
+        pic.setColor(Color.black);
+        pic.drawRect(x - 3, y - 3, 6, 6);
+        pic.drawRect(x + width - 3, y - 3, 6, 6);
+        pic.drawRect(x - 3, y + height - 3, 6, 6);
+        pic.drawRect(x + width - 3, y + height - 3, 6, 6);
+
+    }
 }

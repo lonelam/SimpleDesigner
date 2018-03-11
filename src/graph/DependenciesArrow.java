@@ -96,4 +96,9 @@ public class DependenciesArrow extends Edge{
             textline = "<<" + textline + ">>";
         }
     }
+
+    @Override
+    public Object cloneElem() {
+        return null;
+    }
 }

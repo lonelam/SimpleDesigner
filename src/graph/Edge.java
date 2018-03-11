@@ -1,7 +1,6 @@
 package graph;
 
 import java.awt.*;
-import java.io.Serializable;
 
 import static java.lang.Math.sqrt;
 
