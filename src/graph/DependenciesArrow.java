@@ -43,7 +43,7 @@ public class DependenciesArrow extends Edge{
 //        pic.drawPolygon(xs, ys, 3);
         AffineTransform orig = pic.getTransform();
 
-        pic.rotate(atan2(vy, vx), (s.x + t.x) / 2, (s.y + t.y) / 2);
+        pic.rotate(vx > 0 ? atan2(vy, vx) : atan2(-vy, -vx), (s.x + t.x) / 2, (s.y + t.y) / 2);
         pic.drawString(textline, (s.x + t.x) / 2, (s.y + t.y) / 2);
         pic.setTransform(orig);
 
