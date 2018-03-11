@@ -1,5 +1,6 @@
 package graph;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
@@ -90,6 +91,11 @@ public class GeneralizationArrow extends Edge{
         if (!textline.equals("")){
             textline = "<<" + textline + ">>";
         }
+    }
+
+    @Override
+    public void highlight() {
+
     }
 
     @Override

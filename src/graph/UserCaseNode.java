@@ -71,8 +71,13 @@ public class UserCaseNode extends Node implements Cloneable {
 
 	}
 
-    @Override
-    public Object cloneElem() {
+	@Override
+	public void highlight() {
+
+	}
+
+	@Override
+	public Object cloneElem() {
         UserCaseNode r = new UserCaseNode(10, 10, 10 + this.getWidth(), 10 + this.getHeight(), this.text);
 
         return r;

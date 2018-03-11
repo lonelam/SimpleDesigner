@@ -4,9 +4,10 @@ import drawer.DrawSelf;
 import drawer.Movable;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Vector;
 
-public abstract class Element implements DrawSelf, Movable, Cloneable {
+public abstract class Element implements DrawSelf, Movable, Cloneable, Serializable {
     /**
      * 元素首次建立和选中双击后会调用这个函数
      */

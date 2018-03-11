@@ -89,6 +89,11 @@ public class InheritanceArrow extends Edge{
     }
 
     @Override
+    public void highlight() {
+
+    }
+
+    @Override
     public Object cloneElem() {
         return null;
     }

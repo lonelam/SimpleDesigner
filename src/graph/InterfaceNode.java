@@ -98,6 +98,11 @@ public class InterfaceNode extends Node {
 	}
 
 	@Override
+	public void highlight() {
+
+	}
+
+	@Override
 	public boolean isConflict(Point targetP) {
 		if (targetP.getX() >= getX()+3 && targetP.getY() >= getY() +3 &&
 				targetP.getX() <= getWidth() + getX() -3 && targetP.getY() <= getHeight() + getY() -3) {

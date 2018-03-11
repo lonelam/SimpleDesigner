@@ -19,6 +19,11 @@ public class RectNode extends Node{
     }
 
     @Override
+    public void highlight() {
+
+    }
+
+    @Override
     public void draw(Graphics2D pic, Rectangle bound) {
         JTextArea label = new JTextArea(text);
         label.setBounds(0, 0, getWidth(), getHeight());
@@ -40,8 +45,8 @@ public class RectNode extends Node{
 
     @Override
     public boolean isConflict(Point targetP) {
-        if (targetP.getX() >= getX() - 10 && targetP.getY() >= getY() - 10 &&
-                targetP.getX() <= getWidth() + getX() + 10 && targetP.getY() <= getHeight() + getY() + 10) {
+        if (targetP.getX() >= getX() + 10 && targetP.getY() >= getY() + 10 &&
+                targetP.getX() <= getWidth() + getX() - 10 && targetP.getY() <= getHeight() + getY() - 10) {
             return true;
         }
         return false;

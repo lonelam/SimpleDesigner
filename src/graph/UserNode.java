@@ -63,6 +63,11 @@ public class UserNode extends Node{
     }
 
     @Override
+    public void highlight() {
+
+    }
+
+    @Override
     public Object cloneElem() {
         UserNode r = new UserNode(10, 10, 10 + this.getWidth(), 10 + this.getHeight(), this.text);
 

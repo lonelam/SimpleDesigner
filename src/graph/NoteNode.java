@@ -79,6 +79,11 @@ public class NoteNode extends Node{
 	}
 
 	@Override
+	public void highlight() {
+
+	}
+
+	@Override
 	public boolean isConflict(Point targetP) {
         return false;
     }

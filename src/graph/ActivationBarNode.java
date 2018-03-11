@@ -92,6 +92,11 @@ public class ActivationBarNode extends Node{
 
     }
 
+    @Override
+    public void highlight() {
+
+    }
+
     public void setInnerY(int offset) {
         innerY = offset;
     }

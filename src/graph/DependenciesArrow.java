@@ -98,6 +98,11 @@ public class DependenciesArrow extends Edge{
     }
 
     @Override
+    public void highlight() {
+
+    }
+
+    @Override
     public Object cloneElem() {
         return null;
     }

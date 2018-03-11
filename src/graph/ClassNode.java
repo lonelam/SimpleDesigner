@@ -106,6 +106,11 @@ public class ClassNode extends Node{
 	}
 
 	@Override
+	public void highlight() {
+
+	}
+
+	@Override
 	public boolean isConflict(Point targetP) {
 		// TODO Auto-generated method stub
 		return false;

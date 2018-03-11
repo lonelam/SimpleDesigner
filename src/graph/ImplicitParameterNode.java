@@ -82,7 +82,12 @@ public class ImplicitParameterNode extends Node{
         EditorBox editorBox = new EditorBox(null, this, "Priorities", labels, text);
         editorBox.setVisible(true);
 	}
-	
+
+	@Override
+	public void highlight() {
+
+	}
+
 	public void addBarNode(ActivationBarNode a) {
 		ActivationBarNodes.addElement(a);
 	}
