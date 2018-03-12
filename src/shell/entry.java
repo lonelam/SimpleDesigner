@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class entry {
     public static void main(String[] args) {
-        EditorFrame mFindow = new EditorFrame("nice");
+        EditorFrame mFindow = new EditorFrame("SHUML");
         try
         {
 //            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
